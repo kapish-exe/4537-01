@@ -7,14 +7,12 @@ class Note {
         let notes = Note.getAllNotes();
         notes.push(this.content);
         Note.saveToLocalStorage(notes);
-        alert('Note saved successfully!');
     }
 
     static update(index, newContent) {
         let notes = Note.getAllNotes();
         notes[index] = newContent; 
         Note.saveToLocalStorage(notes);
-        alert('Note updated successfully!');
     }
 
     static delete(index) {
