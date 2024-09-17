@@ -11,13 +11,13 @@ class Note {
 
     static update(index, newContent) {
         let notes = Note.getAllNotes();
-        notes[index] = newContent; 
+        notes[index] = newContent;
         Note.saveToLocalStorage(notes);
     }
 
     static delete(index) {
         let notes = Note.getAllNotes();
-        notes.splice(index, 1); 
+        notes.splice(index, 1);
         Note.saveToLocalStorage(notes);
     }
 
@@ -36,7 +36,7 @@ class NoteUI {
         this.saveButton = saveButton;
         this.notesList = notesList;
         this.lastUpdated = lastUpdated;
-        this.autoRefresh = autoRefresh; 
+        this.autoRefresh = autoRefresh;
     }
 
     init() {
@@ -56,19 +56,16 @@ class NoteUI {
     handleSaveNote() {
         const content = this.noteInput.value.trim();
 
-        // if (content) {
-            const note = new Note(content); 
-            note.save();  
-            this.noteInput.value = '';  
-            this.displayNotes();  
-        // } else {
-            // alert('Please write something before saving.');
-        // }
+        const note = new Note(content);
+        note.save();
+        this.noteInput.value = '';
+        this.displayNotes();
+
     }
 
     displayNotes() {
         const notes = Note.getAllNotes();
-        this.notesList.innerHTML = ''; 
+        this.notesList.innerHTML = '';
 
         notes.forEach((noteContent, index) => {
             const noteBox = this.createNoteBox(noteContent, index);
@@ -83,9 +80,9 @@ class NoteUI {
         noteBox.className = 'note-box';
 
         const noteTextArea = document.createElement('textarea');
-        noteTextArea.value = noteContent; 
+        noteTextArea.value = noteContent;
         noteTextArea.addEventListener('input', () => {
-            noteTextArea.classList.add('modified'); 
+            noteTextArea.classList.add('modified');
         });
         noteBox.appendChild(noteTextArea);
 
@@ -96,8 +93,8 @@ class NoteUI {
             saveChangesButton.onclick = () => {
                 const newContent = noteTextArea.value.trim();
                 if (newContent) {
-                    Note.update(index, newContent); 
-                    this.displayNotes(); 
+                    Note.update(index, newContent);
+                    this.displayNotes();
                 } else {
                     alert('Note cannot be empty!');
                 }
@@ -107,8 +104,8 @@ class NoteUI {
             deleteButton.textContent = 'Delete';
             deleteButton.className = 'delete-button';
             deleteButton.onclick = () => {
-                Note.delete(index); 
-                this.displayNotes(); 
+                Note.delete(index);
+                this.displayNotes();
             };
 
             noteBox.appendChild(saveChangesButton);
@@ -120,7 +117,7 @@ class NoteUI {
 
     updateLastUpdatedTime() {
         const now = new Date();
-        const formattedTime = now.toLocaleString(); 
+        const formattedTime = now.toLocaleString();
         if (this.lastUpdated) {
             this.lastUpdated.textContent = `Last updated at: ${formattedTime}`;
         }
@@ -133,8 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const notesList = document.getElementById('notesList');
     const lastUpdated = document.getElementById('lastUpdated');
 
-    const isReaderPage = !saveButton; 
-    const autoRefresh = isReaderPage; 
+    const isReaderPage = !saveButton;
+    const autoRefresh = isReaderPage;
 
     const noteUI = new NoteUI(noteInput, saveButton, notesList, lastUpdated, autoRefresh);
     noteUI.init();
