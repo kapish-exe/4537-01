@@ -56,14 +56,14 @@ class NoteUI {
     handleSaveNote() {
         const content = this.noteInput.value.trim();
 
-        if (content) {
+        // if (content) {
             const note = new Note(content); 
             note.save();  
             this.noteInput.value = '';  
             this.displayNotes();  
-        } else {
-            alert('Please write something before saving.');
-        }
+        // } else {
+            // alert('Please write something before saving.');
+        // }
     }
 
     displayNotes() {
